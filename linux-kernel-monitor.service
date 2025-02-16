@@ -1,0 +1,10 @@
+[Unit]
+Description=Service for monitoring linux kernel stats
+
+[Service]
+ExecStart=/usr/bin/linux_kernel_monitor
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

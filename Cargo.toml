@@ -1,0 +1,33 @@
+[package]
+name = "linux_kernel_monitor"
+version = "0.1.0"
+edition = "2021"
+description = "Service for monitoring linux kernel stats"
+authors = ["Oleksii Skrypka skrypka.olek@gmail.com"]
+license = "MIT"
+
+
+[dependencies]
+crossbeam-channel = "0.5.14"
+clap = { version = "4.5.29", features = ["derive"] }
+serde = { version = "1.0.217", features = ["derive"]}
+toml = "0.8.20"
+sysinfo = "0.33.1"
+
+[[bin]]
+name = "lkmonitorctl"
+path = "src/bin/lkmonitorctl.rs"
+
+[package.metadata.deb]
+assets = [
+    ["linux-kernel-monitor.service", "/etc/systemd/system/linux-kernel-monitor.service", "0644"],
+	["target/release/linux_kernel_monitor", "/usr/bin/linux_kernel_monitor", "0755"],
+	["target/release/lkmonitorctl", "/usr/bin/lkmonitorctl", "0755"],
+]
+
+[package.metadata.generate-rpm	]
+assets = [
+	{ source = "linux-kernel-monitor.service", dest= "/etc/systemd/system/linux-kernel-monitor.service", mode = "0644" },
+	{ source = "target/release/linux_kernel_monitor", dest = "/usr/bin/linux_kernel_monitor", mode ="0755" },
+	{ source = "target/release/lkmonitorctl", dest = "/usr/bin/lkmonitorctl", mode = "0755" },
+]
